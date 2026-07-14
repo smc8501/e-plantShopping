@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeItem, updateQuantity } from './CartSlice';
 import './CartItem.css';
@@ -20,7 +20,7 @@ const CartItem = ({ onContinueShopping }) => {
     onContinueShopping(e);
    
   };
-  const handleCheckoutShopping = (e) => {
+  const handleCheckoutShopping = () => {
     alert('Functionality to be added for future reference');
   };
 
@@ -38,6 +38,7 @@ const CartItem = ({ onContinueShopping }) => {
 
   const handleRemove = (item) => {
     dispatch(removeItem({ name: item.name }));
+    dispatch(updateQuantity({ name: item.name, quantity: 0 })); // Reset quantity to 0 when removing the item
   };
 
   // Calculate total cost based on quantity for an item
@@ -70,12 +71,16 @@ const CartItem = ({ onContinueShopping }) => {
       <div className="continue_shopping_btn">
         <button className="get-started-button" onClick={(e) => handleContinueShopping(e)}>Continue Shopping</button>
         <br />
-        <button className="get-started-button1">Checkout</button>
+        <button className="get-started-button1" onClick={(e) => handleCheckoutShopping(e)}>Checkout</button>
       </div>
     </div>
   );
 };
 
 export default CartItem;
+
+CartItem.propTypes = {
+  onContinueShopping: PropTypes.func.isRequired,
+};
 
 
