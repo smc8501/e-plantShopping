@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './ProductList.css'
 import CartItem from './CartItem';
 function ProductList({ onHomeClick }) {
@@ -274,6 +274,27 @@ function ProductList({ onHomeClick }) {
             </div>
             {!showCart ? (
                 <div className="product-grid">
+                {plantsArray.filter((category, index) => index < 3).map((category, index) => (
+                    <div key={index} className="category-section">
+                        <h2 className="plant_heading">{category.category}</h2>
+                        <div className="product-list">
+                            {category.plants.filter((plant, plantIndex) => plantIndex < 6).map((plant, plantIndex) => (
+                                <div key={plantIndex} className="product-card">
+                                    <img src={plant.image} alt={plant.name} className="product-image" />
+                                    <h3 className="product-title plantname_heading">{plant.name}</h3>
+                                    <p className="product-description">{plant.description}</p>
+                                    <p className="product-cost">{plant.cost}</p>
+                                    <button className="product-button"
+                            onClick={() => handleAddToCart(plant)}>Add To Cart</button>
+                                </div>
+                                
+                            ))}
+                            
+                        </div>
+                    </div>
+
+
+                ))}
 
 
                 </div>
